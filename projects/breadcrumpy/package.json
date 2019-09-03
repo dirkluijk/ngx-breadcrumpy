@@ -1,6 +1,6 @@
 {
   "name": "@dirkluijk/ngx-breadcrumpy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Awesome breadcrumbs for Angular",
   "author": "Dirk Luijk <mail@dirkluijk.nl>",
   "license": "MIT",
