@@ -4,6 +4,7 @@
     "linebreak-style": false,
     "no-implicit-dependencies": false,
     "strict-indent-size": [true, 2],
-    "template-use-track-by-function": false
+    "template-use-track-by-function": false,
+    "prefer-on-push-component-change-detection": false
   }
 }
