@@ -20,7 +20,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/breadcrumpy/tsconfig.lib.json"
+              "projects/breadcrumpy/tsconfig.lib.json",
+              "projects/breadcrumpy/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -117,8 +118,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/demo/tsconfig.app.json",
-              "projects/demo/tsconfig.spec.json"
+              "projects/demo/tsconfig.app.json"
             ],
             "exclude": [
               "**/node_modules/**"

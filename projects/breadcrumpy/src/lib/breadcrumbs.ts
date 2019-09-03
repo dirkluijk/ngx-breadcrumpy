@@ -14,9 +14,13 @@ interface BreadcrumbCacheEntry {
   complete(): void;
 }
 
+export function defaultBreadcrumbKey(): string {
+  return 'breadcrumb';
+}
+
 export const BREADCRUMB_KEY = new InjectionToken<string>('breadcrumpy.key', {
   providedIn: 'root',
-  factory: () => 'breadcrumb'
+  factory: defaultBreadcrumbKey
 });
 
 @Injectable({ providedIn: 'root' })
@@ -24,7 +28,7 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
   /**
    * Cache to remember breadcrumbs when navigating up
    */
-  private cache = new Map<string, BreadcrumbCacheEntry>();
+  private readonly cache = new Map<string, BreadcrumbCacheEntry>();
 
   constructor(
     router: Router,

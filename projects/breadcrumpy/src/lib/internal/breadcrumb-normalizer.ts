@@ -8,7 +8,7 @@ import { BreadcrumbData, isResolverType, isBreadcrumb } from '../breadcrumb-data
 
 @Injectable({ providedIn: 'root' })
 export class BreadcrumbNormalizer {
-  constructor(private injector: Injector) {}
+  constructor(private readonly injector: Injector) {}
 
   public normalizeBreadcrumb(data: BreadcrumbData, url: string, route: ActivatedRouteSnapshot): Observable<Breadcrumb> {
     if (isObservable(data)) {

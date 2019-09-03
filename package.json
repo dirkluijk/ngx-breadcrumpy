@@ -8,7 +8,7 @@
     "commit": "git-cz",
     "start": "ng serve demo",
     "build": "ng build && yarn copy:readme",
-    "test": "ng test demo",
+    "test": "ng test",
     "lint": "ng lint",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
