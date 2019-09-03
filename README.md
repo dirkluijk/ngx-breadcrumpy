@@ -1,6 +1,6 @@
 # Breadcrumpy 🍞
 
-> Awesome breadcrumps for Angular!
+> Awesome breadcrumbs for Angular!
 
 [![NPM version](http://img.shields.io/npm/v/@dirkluijk/ngx-breadcrumpy.svg?style=flat-square)](https://www.npmjs.com/package/@dirkluijk/ngx-breadcrumpy)
 [![NPM downloads](http://img.shields.io/npm/dm/@dirkluijk/ngx-breadcrumpy.svg?style=flat-square)](https://www.npmjs.com/package/@dirkluijk/ngx-breadcrumpy)
