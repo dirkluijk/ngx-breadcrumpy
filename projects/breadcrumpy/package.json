@@ -1,0 +1,14 @@
+{
+  "name": "@dirkluijk/ngx-breadcrumpy",
+  "version": "0.0.0",
+  "description": "Awesome breadcrumbs for Angular",
+  "author": "Dirk Luijk <mail@dirkluijk.nl>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/core": "^8.0.0",
+    "@angular/router": "^8.0.0",
+    "rxjs": "^6.0.0",
+    "rxjs-etc": "^9.0.0"
+  }
+}
