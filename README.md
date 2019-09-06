@@ -110,7 +110,7 @@ A function which returns a `string`, `Breadcrumb` or `Observable<string | Breadc
 export const ROUTES: Routes = [
   {
     path: 'product/:id',
-    resolve: {
+    data: {
       breadcrumb: (route: ActivatedRouteSnapshot) => `Product ${route.paramMap.get('id')}` 
     }
   }
@@ -119,7 +119,7 @@ export const ROUTES: Routes = [
 
 #### 2. Using a BreadcrumbResolver
 
-You can use a special `BreadcrumbResolver` service to benefit from dependency injection.
+You can also use a special `BreadcrumbResolver` service to benefit from dependency injection.
 The `resolve` method should return either a `string`, `Breadcrumb` or `Observable<string | Breadcrumb>`.
 
 Asynchronous observables will not block the routing process, but make the breadcrumb appear when resolved. 
@@ -166,7 +166,7 @@ an `Observable<Observable<string | Breadcrumb>>`. Breadcrumpy will automatically
 
 ### Using a different route property
 
-Just provide a different `BREADCRUMB_KEY` token in your root module to change the default `breadcrumb` property name.
+Just provide a `BREADCRUMB_KEY` token in your root module to change the default `breadcrumb` property name.
 
 ```typescript
 import { BREADCRUMB_KEY } from '@dirkluijk/ngx-breadcrumpy';
