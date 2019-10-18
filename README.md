@@ -70,7 +70,7 @@ Alternatively, implement your own breadcrumb component using the `BREADCRUMBS` i
 ```typescript
 import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Breadcrumb, BREADCRUMBS } from '@dirkluijk/ngx-breadcrumpy';
+import { Breadcrumb, BREADCRUMBS } from 'ngx-breadcrumpy';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -169,7 +169,7 @@ an `Observable<Observable<string | Breadcrumb>>`. Breadcrumpy will automatically
 Just provide a `BREADCRUMB_KEY` token in your root module to change the default `breadcrumb` property name.
 
 ```typescript
-import { BREADCRUMB_KEY } from '@dirkluijk/ngx-breadcrumpy';
+import { BREADCRUMB_KEY } from 'ngx-breadcrumpy';
 
 @NgModule({
   providers: [
