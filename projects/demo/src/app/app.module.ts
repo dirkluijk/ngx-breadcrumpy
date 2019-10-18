@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BreadcrumbsModule } from '@dirkluijk/ngx-breadcrumpy';
+import { BreadcrumbsModule } from 'ngx-breadcrumpy';
 
 import { AppComponent } from './app.component';
 import { AboutComponent } from './pages/about/about.component';

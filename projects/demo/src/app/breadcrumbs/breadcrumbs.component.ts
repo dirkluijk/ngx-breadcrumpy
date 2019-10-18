@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Breadcrumb, BREADCRUMBS } from '@dirkluijk/ngx-breadcrumpy';
+import { Breadcrumb, BREADCRUMBS } from 'ngx-breadcrumpy';
 
 @Component({
   selector: 'app-breadcrumbs',

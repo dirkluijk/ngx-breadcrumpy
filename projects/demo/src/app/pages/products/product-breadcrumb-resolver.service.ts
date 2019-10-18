@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { BreadcrumbResolver } from '@dirkluijk/ngx-breadcrumpy';
+import { BreadcrumbResolver } from 'ngx-breadcrumpy';
 
 @Injectable({ providedIn: 'root' })
 export class ProductBreadcrumbResolver implements BreadcrumbResolver {

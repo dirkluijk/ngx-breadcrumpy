@@ -1,7 +1,11 @@
 {
-  "name": "@dirkluijk/ngx-breadcrumpy",
+  "name": "ngx-breadcrumpy",
   "description": "Awesome breadcrumbs for Angular",
   "author": "Dirk Luijk <mail@dirkluijk.nl>",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/dirkluijk/ngx-breadcrumpy.git"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",

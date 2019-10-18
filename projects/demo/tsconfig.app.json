@@ -4,7 +4,7 @@
     "outDir": "../../out-tsc/app",
     "types": [],
     "paths": {
-      "@dirkluijk/ngx-breadcrumpy": [
+      "ngx-breadcrumpy": [
         "projects/breadcrumpy/src/public-api.ts"
       ]
     }
