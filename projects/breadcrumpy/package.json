@@ -6,9 +6,12 @@
   "license": "MIT",
   "private": false,
   "peerDependencies": {
-    "@angular/core": "^8.0.0",
-    "@angular/router": "^8.0.0",
+    "@angular/core": "^10.0.0",
+    "@angular/router": "^10.0.0",
     "rxjs": "^6.0.0",
-    "rxjs-etc": "^9.0.0"
+    "rxjs-etc": "^10.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

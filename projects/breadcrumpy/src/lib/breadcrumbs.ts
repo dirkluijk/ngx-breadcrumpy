@@ -101,7 +101,7 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
   }
 }
 
-export const BREADCRUMBS = new InjectionToken<Observable<Breadcrumb[]>>('breadcrumpy.breadcrumbs', {
+export const BREADCRUMBS = new InjectionToken<Breadcrumbs>('breadcrumpy.breadcrumbs', {
   providedIn: 'root',
   factory: () => inject(Breadcrumbs)
 });

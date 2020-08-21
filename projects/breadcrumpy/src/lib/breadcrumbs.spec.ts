@@ -1,7 +1,7 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
 import { of, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -60,13 +60,16 @@ describe('Breadcrumbs', () => {
   let breadcrumbs: Breadcrumb[];
   let subscription: Subscription;
   let router: Router;
+  let zone: NgZone;
 
   beforeEach(() => {
     spectator = createService();
     subscription = spectator.service.subscribe((b) => breadcrumbs = b);
 
-    router = spectator.get(Router);
-    router.initialNavigation();
+    router = spectator.inject(Router);
+    zone = spectator.inject(NgZone);
+
+    zone.run(() => router.initialNavigation());
   });
 
   afterEach(() => {
@@ -76,7 +79,7 @@ describe('Breadcrumbs', () => {
   it('should react to routing changes', async () => {
     expect(breadcrumbs).toEqual([]);
 
-    await router.navigate(['/foo']);
+    await navigate(['/foo']);
 
     expect(breadcrumbs).toEqual([
       {
@@ -85,13 +88,13 @@ describe('Breadcrumbs', () => {
       }
     ]);
 
-    await router.navigate(['/']);
+    await navigate(['/']);
 
     expect(breadcrumbs).toEqual([]);
   });
 
   it('should support nested breadcrumb', async () => {
-    await router.navigate(['/foo/bar']);
+    await navigate(['/foo/bar']);
 
     expect(breadcrumbs).toEqual([
       {
@@ -106,7 +109,7 @@ describe('Breadcrumbs', () => {
   });
 
   it('should support complex async breadcrumbs and cache them when navigating up', fakeAsync(() => {
-    router.navigate(['/lorem/10']);
+    navigate(['/lorem/10']);
     flushMicrotasks();
 
     expect(breadcrumbs).toEqual([
@@ -125,7 +128,7 @@ describe('Breadcrumbs', () => {
       }
     ]);
 
-    router.navigate(['/lorem/10/ipsum']);
+    navigate(['/lorem/10/ipsum']);
     flushMicrotasks();
 
     expect(breadcrumbs).toEqual([
@@ -152,7 +155,7 @@ describe('Breadcrumbs', () => {
       }
     ]);
 
-    router.navigate(['/lorem/10']);
+    navigate(['/lorem/10']);
     flushMicrotasks();
 
     expect(breadcrumbs).toEqual([
@@ -162,10 +165,10 @@ describe('Breadcrumbs', () => {
       }
     ]);
 
-    router.navigate(['/']);
+    navigate(['/']);
     flushMicrotasks();
 
-    router.navigate(['/lorem/10']);
+    navigate(['/lorem/10']);
     flushMicrotasks();
 
     expect(breadcrumbs).toEqual([
@@ -186,6 +189,10 @@ describe('Breadcrumbs', () => {
   }));
 
   it('should have a injection token as alias', () => {
-    expect(spectator.get(BREADCRUMBS) as any).toBe(spectator.service);
+    expect(spectator.inject(BREADCRUMBS)).toBe(spectator.service);
   });
+
+  function navigate(commands: any[]): Promise<boolean> {
+    return zone.run(() => router.navigate(commands));
+  }
 });
