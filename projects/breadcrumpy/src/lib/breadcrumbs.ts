@@ -1,7 +1,7 @@
 import { Injectable, InjectionToken, inject, Inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, Subject, of, concat } from 'rxjs';
-import { filter, tap, startWith, map, switchMap, publishReplay, refCount, shareReplay, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, of, concat, defer } from 'rxjs';
+import { filter, startWith, map, switchMap, publishReplay, refCount, shareReplay, takeUntil } from 'rxjs/operators';
 import { concatIfEmpty } from 'rxjs-etc/operators';
 
 import { ProxyObservable } from './internal/proxy-observable';
@@ -38,7 +38,6 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
   ) {
     super(router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      tap((event) => this.invalidateCache(event.url)),
       startWith(true),
       map(() => this.route.root),
       switchMap((root) => this.buildBreadcrumbs(root)),
@@ -49,7 +48,7 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
 
   private buildBreadcrumbs(
     route: ActivatedRoute | null,
-    previousUrl: string = '',
+    previousSegments: any[] = ['./'],
     previous: Breadcrumb[] = []
   ): Observable<Breadcrumb[]> {
     if (!route) {
@@ -59,25 +58,30 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
     const routeConfig = route.routeConfig;
     const configured = routeConfig ? this.breadcrumbKey in (routeConfig.data || routeConfig.resolve || {}) : false;
 
-    const url = [previousUrl, ...route.snapshot.url.map((s) => s.path)].join('/');
+    const newUrlSegments = route.snapshot.url.flatMap((s) => s.parameterMap.keys.length ? [s.path, s.parameters] : [s.path]);
+    const urlSegments = [...previousSegments, ...newUrlSegments];
+
+    const cacheKey = urlSegments.slice(1).filter((it) => typeof it === 'string').join('/');
+
+    if (!route.firstChild) {
+      this.invalidateCache(cacheKey);
+    }
 
     if (!configured) {
-      return this.buildBreadcrumbs(route.firstChild, url, previous);
+      return this.buildBreadcrumbs(route.firstChild, urlSegments, previous);
     }
 
     const data: BreadcrumbData = route.snapshot.data[this.breadcrumbKey];
     const completeSubject = new Subject<void>();
 
-    const breadcrumb$ = this.cache.has(url) ?
-      this.cache.get(url)!.breadcrumb$ :
-      this.normalizer.normalizeBreadcrumb(data, url, route.snapshot).pipe(
-        publishReplay(),
-        refCount(),
+    const breadcrumb$ = this.cache.has(cacheKey) ?
+      this.cache.get(cacheKey)!.breadcrumb$ :
+      this.normalizer.normalizeBreadcrumb(data, urlSegments, route.snapshot).pipe(
         shareReplay({ refCount: false }),
         takeUntil(completeSubject)
       );
 
-    this.cache.set(url, {
+    this.cache.set(cacheKey, {
       breadcrumb$,
       complete: () => completeSubject.next()
     });
@@ -85,15 +89,15 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
     return concat(
       of([...previous, { label: '...', loading: true }]),
       breadcrumb$.pipe(
-        switchMap((b) => this.buildBreadcrumbs(route.firstChild, url, [...previous, b])),
-        concatIfEmpty(this.buildBreadcrumbs(route.firstChild, url, previous))
+        switchMap((b) => this.buildBreadcrumbs(route.firstChild, urlSegments, [...previous, b])),
+        concatIfEmpty(defer(() => this.buildBreadcrumbs(route.firstChild, urlSegments, previous)))
       )
     );
   }
 
-  private invalidateCache(url: string): void {
+  private invalidateCache(cacheKey: string): void {
     this.cache.forEach((_, key) => {
-      if (!url.startsWith(key)) {
+      if (!cacheKey.startsWith(key)) {
         this.cache.get(key)!.complete();
         this.cache.delete(key);
       }

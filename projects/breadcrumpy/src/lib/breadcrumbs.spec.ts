@@ -84,7 +84,8 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Foo',
-        url: '/foo'
+        url: '/foo',
+        urlSegments: ['./', 'foo']
       }
     ]);
 
@@ -99,11 +100,13 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Foo',
-        url: '/foo'
+        url: '/foo',
+        urlSegments: ['./', 'foo']
       },
       {
         label: 'Bar',
-        url: '/foo/bar'
+        url: '/foo/bar',
+        urlSegments: ['./', 'foo', 'bar']
       }
     ]);
   });
@@ -124,7 +127,8 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Lorem 10',
-        url: '/lorem/10'
+        url: '/lorem/10',
+        urlSegments: ['./', 'lorem', '10']
       }
     ]);
 
@@ -134,7 +138,8 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Lorem 10',
-        url: '/lorem/10'
+        url: '/lorem/10',
+        urlSegments: ['./', 'lorem', '10']
       },
       {
         label: '...',
@@ -147,11 +152,13 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Lorem 10',
-        url: '/lorem/10'
+        url: '/lorem/10',
+        urlSegments: ['./', 'lorem', '10']
       },
       {
         label: 'Ipsum',
-        url: '/lorem/10/ipsum'
+        url: '/lorem/10/ipsum',
+        urlSegments: ['./', 'lorem', '10', 'ipsum']
       }
     ]);
 
@@ -161,7 +168,8 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Lorem 10',
-        url: '/lorem/10'
+        url: '/lorem/10',
+        urlSegments: ['./', 'lorem', '10']
       }
     ]);
 
@@ -183,7 +191,8 @@ describe('Breadcrumbs', () => {
     expect(breadcrumbs).toEqual([
       {
         label: 'Lorem 10',
-        url: '/lorem/10'
+        url: '/lorem/10',
+        urlSegments: ['./', 'lorem', '10']
       }
     ]);
   }));

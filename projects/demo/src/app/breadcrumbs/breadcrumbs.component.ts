@@ -7,7 +7,7 @@ import { Breadcrumb, BREADCRUMBS } from 'ngx-breadcrumpy';
   template: `
     <ng-container *ngFor="let b of breadcrumbs$ | async; last as last">
       <ng-container *ngIf="!last">
-        <a [routerLink]="b.url">{{ b.label }}</a> <span> / </span>
+        <a [routerLink]="b.urlSegments">{{ b.label }}</a> <span> / </span>
       </ng-container>
       <ng-container *ngIf="last">
         <span>{{ b.label }}</span>

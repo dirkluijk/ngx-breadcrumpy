@@ -14,7 +14,12 @@
             <li><a routerLinkActive="active" routerLink="/products/2/reviews">products/2/reviews</a></li>
           </ul>
         </li>
-
+        <li>
+          <a routerLinkActive="active" [routerLink]="['products/3', { foo: 1, bar: 2 } ]">products/3;foo=1;bar=2</a>
+          <ul>
+            <li><a routerLinkActive="active" [routerLink]="['products/3', { foo: 1, bar: 2 }, 'reviews' ]">products/3;foo=1;bar=2/reviews</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -25,5 +30,6 @@
 <hr>
 <bcy-breadcrumbs></bcy-breadcrumbs>
 <hr>
+<pre>{{ breadcrumbs$ | async | json }}</pre>
 
 <router-outlet></router-outlet>

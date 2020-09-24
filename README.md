@@ -76,7 +76,7 @@ import { Breadcrumb, BREADCRUMBS } from 'ngx-breadcrumpy';
   selector: 'app-breadcrumb',
   template: `
     <ng-container *ngFor="let b of breadcrumbs$ | async; last as last">
-      <a [routerLink]="b.url">{{ b.label }}</a> <span *ngIf="!last"> / </span>
+      <a [routerLink]="b.urlSegments">{{ b.label }}</a> <span *ngIf="!last"> / </span>
     </ng-container>
   `
 })
@@ -84,6 +84,36 @@ export class BreadcrumbComponent {
   constructor(@Inject(BREADCRUMBS) public breadcrumbs$: Observable<Breadcrumb[]>) {}
 }
 ```
+
+A breadcrumb contains the following properties:
+````typescript
+export interface Breadcrumb {
+  /**
+   * Label of the breadcrumb.
+   */
+  label: string;
+
+  /**
+   * Icon of the breadcrumb.
+   */
+  icon?: string;
+
+  /**
+   * Url to the breadcrumb (if not loading), if not using RouterLink.
+   */
+  url?: string;
+
+  /**
+   * Url segments to the breadcrumb (if not loading), useful for RouterLink.
+   */
+  urlSegments?: any[];
+
+  /**
+   * True if the breadcrumb is being loaded.
+   */
+  loading?: boolean;
+}
+````
 
 
 ### Advanced configuration
@@ -93,18 +123,18 @@ Instead of static breadcrumbs, you may want to make your breadcrumb labels more 
 The breadcrumb configuration can be of many types:
 
 * `string` (label)
-* `Breadcrumb` (object with `label` and optionally an `icon`)
-* `Observable<string | Breadcrumb>`
+* `BreadcrumbLiteral` (object with `label` and optionally an `icon`)
+* `Observable<string | BreadcrumbLiteral>`
 * `(route: ActivatedRouteSnapshot) => string`
-* `(route: ActivatedRouteSnapshot) => Breadcrumb`
-* `(route: ActivatedRouteSnapshot) => Observable<string | Breadcrumb>`
+* `(route: ActivatedRouteSnapshot) => BreadcrumbLiteral`
+* `(route: ActivatedRouteSnapshot) => Observable<string | BreadcrumbLiteral>`
 * `Type<BreadcrumbResolver>`
 
 Of course you can also make combinations. Please find some examples below.
 
 #### 1. Using functions
 
-A function which returns a `string`, `Breadcrumb` or `Observable<string | Breadcrumb>`.
+A function which returns a `string`, `BreadcrumbLiteral` or `Observable<string | BreadcrumbLiteral>`.
 
 ```typescript
 export const ROUTES: Routes = [
@@ -120,7 +150,7 @@ export const ROUTES: Routes = [
 #### 2. Using a BreadcrumbResolver
 
 You can also use a special `BreadcrumbResolver` service to benefit from dependency injection.
-The `resolve` method should return either a `string`, `Breadcrumb` or `Observable<string | Breadcrumb>`.
+The `resolve` method should return either a `string`, `BreadcrumbLiteral` or `Observable<string | BreadcrumbLiteral>`.
 
 Asynchronous observables will not block the routing process, but make the breadcrumb appear when resolved. 
 
@@ -155,14 +185,14 @@ export const ROUTES: Routes = [
 ];
 
 @Injectable({ providedIn: 'root' })
-class YourResolveGuard implements Resolve<string | Breadcrumb> {
+class YourResolveGuard implements Resolve<string | BreadcrumbLiteral> {
   /* ... */
 }
 ```
 
 NOTE: keep in mind that the resolve guards from Angular Router are blocking! To get around this, use the
 previously mentioned `BreadcrumbResolver`. You can also make your guard return
-an `Observable<Observable<string | Breadcrumb>>`. Breadcrumpy will automatically support this.
+an `Observable<Observable<string | BreadcrumbLiteral>>`. Breadcrumpy will automatically support this.
 
 ### Using a different route property
 

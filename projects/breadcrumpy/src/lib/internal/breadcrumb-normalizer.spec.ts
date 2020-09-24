@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { createServiceFactory } from '@ngneat/spectator';
-import { createSpyObject } from '@ngneat/spectator/jest';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { createServiceFactory, createSpyObject } from '@ngneat/spectator/jest';
 import { completed, next, observable } from '@dirkluijk/observable-matchers';
 import { Observable, of } from 'rxjs';
 
@@ -18,11 +17,17 @@ class FooResolver implements BreadcrumbResolver {
 }
 
 describe('BreadcrumbNormalizer', () => {
-  const createService = createServiceFactory(BreadcrumbNormalizer);
+  const createService = createServiceFactory({
+    service: BreadcrumbNormalizer,
+    mocks: [Router]
+  });
+
   const route = createSpyObject(ActivatedRouteSnapshot);
 
   it('should normalize all data types', () => {
     const spectator = createService();
+
+    spectator.inject(Router).serializeUrl.mockReturnValue('/foo');
 
     const inputs: BreadcrumbData[] = [
       'Foo',
@@ -35,10 +40,11 @@ describe('BreadcrumbNormalizer', () => {
     ];
 
     inputs.forEach((input) => {
-      expect(spectator.service.normalizeBreadcrumb(input, '/foo', route)).toEqual(observable(
+      expect(spectator.service.normalizeBreadcrumb(input, ['/', 'foo'], route)).toEqual(observable(
         next({
           label: 'Foo',
-          url: '/foo'
+          url: '/foo',
+          urlSegments: ['/', 'foo']
         }),
         completed()
       ));

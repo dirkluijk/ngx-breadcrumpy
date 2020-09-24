@@ -9,7 +9,7 @@ import { Breadcrumb } from './breadcrumb';
   template: `
     <span *ngFor="let b of breadcrumbs$ | async; last as last" class="breadcrumb" [class.loading]="b.loading" [class.current]="last">
       <ng-container *ngIf="!last">
-        <a [routerLink]="b.url">{{ b.label }}</a> <span class="separator"> / </span>
+        <a [routerLink]="b.urlSegments">{{ b.label }}</a> <span class="separator"> / </span>
       </ng-container>
       <ng-container *ngIf="last">
         <span>{{ b.label }}</span>
