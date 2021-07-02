@@ -4,7 +4,7 @@
 
 [![NPM version](http://img.shields.io/npm/v/ngx-breadcrumpy.svg?style=flat-square)](https://www.npmjs.com/package/ngx-breadcrumpy)
 [![NPM downloads](http://img.shields.io/npm/dm/ngx-breadcrumpy.svg?style=flat-square)](https://www.npmjs.com/package/ngx-breadcrumpy)
-[![Build status](https://img.shields.io/travis/dirkluijk/ngx-breadcrumpy.svg?style=flat-square)](https://travis-ci.org/dirkluijk/ngx-breadcrumpy)
+[![Build status](https://github.com/dirkluijk/ngx-breadcrumpy/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/dirkluijk/ngx-breadcrumpy/actions/workflows/main.yml)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 
 ## Overview
