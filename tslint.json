@@ -4,6 +4,8 @@
     "deprecation": {
       "severity": "warning"
     },
+    "no-any": false,
+    "trailing-comma": false,
     "linebreak-style": false,
     "no-implicit-dependencies": false,
     "strict-indent-size": [true, 2],

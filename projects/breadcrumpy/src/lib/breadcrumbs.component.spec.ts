@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { createComponentFactory } from '@ngneat/spectator';
+import { createComponentFactory } from '@ngneat/spectator/jest';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Breadcrumb } from './breadcrumb';
@@ -43,7 +43,7 @@ describe('BreadcrumbsComponent', () => {
 
     expect(spectator.queryAll('.breadcrumb')).toHaveLength(4);
 
-    const [bc1, bc2, bc3, bc4] = spectator.queryAll('.breadcrumb');
+    const [bc1, bc2, bc3, bc4]: Element[] = spectator.queryAll('.breadcrumb');
 
     expect(bc1).toHaveText('Home');
     expect(bc2).toHaveText('Products');

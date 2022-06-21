@@ -51,7 +51,7 @@ describe('Breadcrumbs', () => {
               }
             }
           ]
-        },
+        }
       ])
     ]
   });
