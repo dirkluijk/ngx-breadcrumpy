@@ -1,0 +1,4 @@
+{
+    "packageFiles": ["projects/ngx-breadcrumpy/package.json"],
+    "bumpFiles": ["projects/ngx-breadcrumpy/package.json"]
+}
