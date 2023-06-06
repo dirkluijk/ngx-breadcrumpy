@@ -1,7 +1,7 @@
 import { Injectable, InjectionToken, inject, Inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, Subject, of, concat, defer } from 'rxjs';
-import { filter, startWith, map, switchMap, publishReplay, refCount, shareReplay, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, of, concat, defer, ReplaySubject, share } from 'rxjs';
+import { filter, startWith, map, switchMap, shareReplay, takeUntil } from 'rxjs/operators';
 import { concatIfEmpty } from 'rxjs-etc/operators';
 
 import { ProxyObservable } from './internal/proxy-observable';
@@ -41,8 +41,12 @@ export class Breadcrumbs extends ProxyObservable<Breadcrumb[]> {
       startWith(true),
       map(() => this.route.root),
       switchMap((root) => this.buildBreadcrumbs(root)),
-      publishReplay(),
-      refCount(),
+      share({
+        connector: () => new ReplaySubject(1),
+        resetOnError: false,
+        resetOnComplete: false,
+        resetOnRefCountZero: false
+      })
     ));
   }
 

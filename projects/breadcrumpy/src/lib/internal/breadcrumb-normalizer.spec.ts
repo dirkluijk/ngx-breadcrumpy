@@ -27,7 +27,7 @@ describe('BreadcrumbNormalizer', () => {
   it('should normalize all data types', () => {
     const spectator = createService();
 
-    spectator.inject(Router).serializeUrl.mockReturnValue('/foo');
+    spectator.inject(Router).serializeUrl.andReturn('/foo');
 
     const inputs: BreadcrumbData[] = [
       'Foo',

@@ -10,7 +10,7 @@ import { BREADCRUMBS, Breadcrumbs } from './breadcrumbs';
 import { Breadcrumb } from './breadcrumb';
 
 // tslint:disable-next-line
-@Component({ template: '' })
+@Component({ selector: 'dummy-component', template: '' })
 class DummyComponent {}
 
 describe('Breadcrumbs', () => {
@@ -26,12 +26,12 @@ describe('Breadcrumbs', () => {
         {
           path: 'foo',
           component: DummyComponent,
-          data: { breadcrumb: 'Foo'},
+          data: { breadcrumb: 'Foo' },
           children: [
             {
               path: 'bar',
               component: DummyComponent,
-              data: { breadcrumb: 'Bar'}
+              data: { breadcrumb: 'Bar' }
             }
           ]
         },
@@ -41,7 +41,8 @@ describe('Breadcrumbs', () => {
           data: {
             breadcrumb: (snapshot: ActivatedRouteSnapshot) => {
               return of('Lorem ' + snapshot.paramMap.get('id')).pipe(delay(500));
-            }},
+            }
+          },
           children: [
             {
               path: 'ipsum',
