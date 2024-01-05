@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/dirkluijk/ngx-breadcrumpy/compare/v1.8.0...v1.9.0) (2024-01-05)
+
+
+### Features
+
+* add support for Angular 17 ([#47](https://github.com/dirkluijk/ngx-breadcrumpy/issues/47)) ([49c0ce7](https://github.com/dirkluijk/ngx-breadcrumpy/commit/49c0ce7797823f0c0bf84fa894545095e895b172))
+
 ## [1.8.0](https://github.com/dirkluijk/ngx-breadcrumpy/compare/v1.7.0...v1.8.0) (2023-06-06)
 
 
